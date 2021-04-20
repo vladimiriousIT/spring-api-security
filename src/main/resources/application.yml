@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  servlet:    multipart:      enabled: true
+  jpa:    show-sql: true
+    
+logging:  pattern:    console: "%clr(%d{HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(---){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+#  level:#    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    
+server:  ssl:    key-store-type: PKCS12
+    key-store: classpath:keystore/apisecurity.p12
+    key-store-password: test123
+    key-alias: apisecurity
+    enabled: false
+  servlet:    session:      cookie:        max-age: 15m
