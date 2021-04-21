@@ -1,5 +1,16 @@
 package com.course.apisecurity.api.filter;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -8,25 +19,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 //@Component
 public class XssRequestFilter extends OncePerRequestFilter {
 
 	private static final String[] XSS_REGEX = {
 			"onclick|onkeypress|onkeydown|onkeyup|onerror|onchange|onmouseover|onmouseout|onblur|onselect|onfocus",
-			"<\s*script\b[^>]*>(.*?)<\s*/script\b[^>]*>", "script\s+src\s*=", "<\s*script\b[^>]*>",
-			"<\s*/script\b[^>]*>", "javascript.*:" };
+			"<*script[^>]*>(.*?)<*/script[^>]*>", "script+src*=", "<*script[^>]*>",
+			"<*/script[^>]*>", "javascript.*:" };
 
 	private List<Pattern> xssValidationPatterns;
 

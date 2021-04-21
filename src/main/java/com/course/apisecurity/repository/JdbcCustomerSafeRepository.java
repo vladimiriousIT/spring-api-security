@@ -1,17 +1,16 @@
 package com.course.apisecurity.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
-
+import com.course.apisecurity.entity.JdbcCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.course.apisecurity.entity.JdbcCustomer;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JdbcCustomerSafeRepository {
@@ -51,7 +50,8 @@ public class JdbcCustomerSafeRepository {
 		var sql = "INSERT INTO jdbc_customer(full_name, email, birth_date, gender) "
 				+ "VALUES (:fullName, :email, :birthDate, :gender)";
 
-		var sqlParameters = new MapSqlParameterSource().addValue("fullName", newCustomer.getFullName())
+		var sqlParameters = new MapSqlParameterSource()
+        .addValue("fullName", newCustomer.getFullName())
 				.addValue("email", newCustomer.getEmail()).addValue("birthDate", newCustomer.getBirthDate())
 				.addValue("gender", newCustomer.getGender());
 
